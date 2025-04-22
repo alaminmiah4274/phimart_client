@@ -1,6 +1,6 @@
 import bgimg from "/src/assets/banner-image-bg-1.jpg";
 import bookImg from "/src/assets/banner-image3.png";
-import DiscountTimer from "/src/components/Discount/DiscountTimer.jsx";
+import DiscountTimer from "/src/components/Home/Discount/DiscountTimer.jsx";
 
 const DiscountSection = () => {
   return (

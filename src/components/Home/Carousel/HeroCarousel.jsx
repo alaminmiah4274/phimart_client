@@ -8,7 +8,7 @@ import "swiper/css/navigation";
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
-import CarouselSlide from "/src/components/Carousel/CarouselSlide";
+import CarouselSlide from "/src/components/Home/Carousel/CarouselSlide";
 import book from "/src/assets/book.png";
 import fashion from "/src/assets/fashion.png";
 import technology from "/src/assets/technology.png";

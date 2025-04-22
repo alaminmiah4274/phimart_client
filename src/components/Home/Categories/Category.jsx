@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import apiClient from "/src/components/services/api_client.js";
-import CategoryItems from "/src/components/Categories/CategoryItems.jsx";
+import CategoryItems from "/src/components/Home/Categories/CategoryItems.jsx";
 
 const Category = () => {
   const [categories, setCategories] = useState([]);

@@ -2,8 +2,8 @@ import defaultImg from "/src/assets/default_product.jpg";
 
 const ProductItem = ({ product }) => {
   return (
-    <div className="card bg-base-100 w-[300px] md:w-[350px] h-[420px] shadow-sm">
-      <figure className="px-8 pt-8">
+    <div className="card bg-base-100 h-[420px] shadow-sm">
+      <figure className="px-8 pt-10">
         <img
           src={product.images.length > 0 ? product.images[0].image : defaultImg}
           alt="Shoes"

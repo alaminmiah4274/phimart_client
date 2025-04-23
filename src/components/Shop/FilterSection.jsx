@@ -1,4 +1,10 @@
-const FilterSection = ({ priceRange, handlePriceChange }) => {
+const FilterSection = ({
+  priceRange,
+  handlePriceChange,
+  categories,
+  selectedCategory,
+  handleCategoryChange,
+}) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
       {/*Price Range*/}
@@ -68,10 +74,17 @@ const FilterSection = ({ priceRange, handlePriceChange }) => {
         >
           Category
         </label>
-        <select name="" id="" className="w-full p-2 border rounded-md">
-          <option value="">All Categories</option>
-          <option value="1">Book</option>
-          <option value="2">Fashion</option>
+        <select
+          className="w-full p-2 border rounded-md"
+          value={selectedCategory}
+          onChange={(e) => handleCategoryChange(e.target.value)}
+        >
+          <option>All Categories</option>
+          {categories.map((category) => (
+            <option key={category.id} value={category.id}>
+              {category.name}
+            </option>
+          ))}
         </select>
       </div>
 

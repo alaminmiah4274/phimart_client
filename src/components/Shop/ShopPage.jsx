@@ -2,12 +2,21 @@ import { useState } from "react";
 import ProductList from "/src/components/Shop/ProductList.jsx";
 import Pagination from "/src/components/Shop/Pagination.jsx";
 import useFetchProducts from "/src/hooks/useFetchProducts.js";
+import useFetchCategories from "/src/hooks/useFetchCategories.js";
 import FilterSection from "/src/components/Shop/FilterSection.jsx";
 
 const ShopPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [priceRange, setPriceRange] = useState([0, 1000]);
-  const { products, loading, totalPages } = useFetchProducts(currentPage);
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  const { products, loading, totalPages } = useFetchProducts(
+    currentPage,
+    priceRange,
+    selectedCategory,
+  );
+
+  const categories = useFetchCategories();
 
   const handlePriceChange = (index, value) => {
     setPriceRange((prev) => {
@@ -36,6 +45,9 @@ const ShopPage = () => {
       <FilterSection
         priceRange={priceRange}
         handlePriceChange={handlePriceChange}
+        categories={categories}
+        selectedCategory={selectedCategory}
+        handleCategoryChange={setSelectedCategory}
       />
       <ProductList products={products} loading={loading} />
       <Pagination

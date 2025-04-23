@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import apiClient from "/src/components/services/api_client.js";
 
-const useFetchProducts = (currentPage) => {
+const useFetchProducts = (currentPage, priceRange, selectedCategory) => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -10,8 +10,9 @@ const useFetchProducts = (currentPage) => {
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
+      const url = `/products/?price__gt=${priceRange[0]}&price__lt=${priceRange[1]}&page=${currentPage}&category_id=${selectedCategory}`;
       try {
-        const res = await apiClient.get(`/products/?page=${currentPage}`);
+        const res = await apiClient.get(url);
         const data = await res.data;
 
         setProducts(data.results);
@@ -24,9 +25,14 @@ const useFetchProducts = (currentPage) => {
     };
 
     fetchProducts();
-  }, [currentPage]);
+  }, [currentPage, priceRange, selectedCategory]);
 
   return { products, loading, totalPages };
 };
 
 export default useFetchProducts;
+
+/*
+Phimart server:
+https://phimart-gold.vercel.app/api/v1/
+*/

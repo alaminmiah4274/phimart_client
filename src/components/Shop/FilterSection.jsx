@@ -6,6 +6,8 @@ const FilterSection = ({
   handleCategoryChange,
   searchQuery,
   handleSearchQuery,
+  sortOrder,
+  handleSorting,
 }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -115,10 +117,14 @@ const FilterSection = ({
         >
           Sort By Price
         </label>
-        <select name="" id="" className="w-full p-2 border rounded-md">
+        <select
+          value={sortOrder}
+          onChange={(e) => handleSorting(e.target.value)}
+          className="w-full p-2 border rounded-md"
+        >
           <option value="">Default</option>
-          <option value="asc">Price: Low to High</option>
-          <option value="desc">Price: High to Low</option>
+          <option value="price">Price: Low to High</option>
+          <option value="-price">Price: High to Low</option>
         </select>
       </div>
     </div>

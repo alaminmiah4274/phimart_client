@@ -4,6 +4,8 @@ const FilterSection = ({
   categories,
   selectedCategory,
   handleCategoryChange,
+  searchQuery,
+  handleSearchQuery,
 }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -97,6 +99,8 @@ const FilterSection = ({
           Search
         </label>
         <input
+          value={searchQuery}
+          onChange={(e) => handleSearchQuery(e.target.value)}
           type="text"
           className="w-full p-2 border rounded-md"
           placeholer="Search books..."

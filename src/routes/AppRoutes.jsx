@@ -3,6 +3,7 @@ import About from "/src/pages/About";
 import Home from "/src/pages/Home";
 import MainLayout from "/src/layouts/MainLayout";
 import Shop from "/src/pages/Shop.jsx";
+import Login from "/src/pages/Login.jsx";
 
 const AppRoutes = () => {
   return (
@@ -11,6 +12,7 @@ const AppRoutes = () => {
         <Route path="/" element={<Home />} />
         <Route path="about" element={<About />} />
         <Route path="shop" element={<Shop />} />
+        <Route path="login" element={<Login />} />
       </Route>
     </Routes>
   );

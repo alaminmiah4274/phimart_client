@@ -4,9 +4,14 @@ import CategoryItems from "/src/components/Home/Categories/CategoryItems.jsx";
 
 const Category = () => {
   const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    apiClient.get("/categories/").then((res) => setCategories(res.data));
+    setLoading(true);
+    apiClient
+      .get("/categories/")
+      .then((res) => setCategories(res.data))
+      .finally(() => setLoading(false));
   }, []);
 
   return (
@@ -21,6 +26,13 @@ const Category = () => {
           View All
         </a>
       </div>
+
+      {/*Spinner*/}
+      {loading && (
+        <div className="flex items-center justify-center py-10">
+          <span className="loading loading-spinner loading-xl text-secondary"></span>
+        </div>
+      )}
 
       {/*Category Grid*/}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

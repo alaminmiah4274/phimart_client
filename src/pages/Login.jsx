@@ -1,9 +1,12 @@
 import useAuthContext from "/src/hooks/useAuthContext.js";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
+import ErrorAlert from "/src/components/ErrorAlert";
+import { useState } from "react";
 
 const Login = () => {
-  const { user, loginUser } = useAuthContext();
+  const { errorMsg, user, loginUser } = useAuthContext();
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -11,15 +14,26 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
+  const navigate = useNavigate();
+
   const handleLogIn = async (data) => {
-    await loginUser(data);
+    setLoading(true);
+    try {
+      await loginUser(data);
+      navigate("/dashboard");
+    } catch (err) {
+      console.log("login failed:", err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="flex min-h-screen items-center justify-center px-4 py-12 bg-base-200">
       <div className="card w-full max-w-md bg-base-100 shadow-xl">
         <div className="card-body">
-          <h2 className="card-title text-2xl font-bold">Sign In</h2>
+          {errorMsg && <ErrorAlert error={errorMsg} />}
+          <h2 className="card-title text-2xl font-bold">Log In</h2>
           <p className="text-base-content/70">
             Enter your email and password to access your account
           </p>
@@ -60,8 +74,12 @@ const Login = () => {
               )}
             </div>
 
-            <button type="submit" className="btn btn-primary w-full">
-              Login
+            <button
+              type="submit"
+              className="btn btn-primary w-full"
+              disabled={loading}
+            >
+              {loading ? "Loging..." : "Log In"}
             </button>
           </form>
 

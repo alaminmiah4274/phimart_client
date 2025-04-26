@@ -4,6 +4,7 @@ import apiClient from "/src/components/services/api_client.js";
 const useAuth = () => {
   const [user, setUser] = useState(null);
   const [errorMsg, setErrorMsg] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
 
   const getToken = () => {
     const token = localStorage.getItem("authTokens");
@@ -17,6 +18,23 @@ const useAuth = () => {
     if (authTokens) fetchUserProfile();
   }, [authTokens]);
 
+  // error for api related fetching
+  const handleAPIError = (
+    error,
+    defaultMessage = "Something Went Wrong! Try Again",
+  ) => {
+    if (error.response && error.response.data) {
+      const errorMessage = Object.values(error.response.data).flat().join("\n");
+      setErrorMsg(errorMessage);
+
+      return { success: false, message: defaultMessage };
+    } else {
+      setErrorMsg(defaultMessage);
+
+      return { success: false, message: defaultMessage };
+    }
+  };
+
   // fetch current user:
   const fetchUserProfile = async () => {
     setErrorMsg("");
@@ -28,6 +46,36 @@ const useAuth = () => {
       setUser(res.data);
     } catch (err) {
       setErrorMsg(err.response.data?.detail);
+    }
+  };
+
+  // to update user info
+  const updateUserProfile = async (data) => {
+    setErrorMsg("");
+    setSuccessMsg("");
+    try {
+      await apiClient.put("/auth/users/me/", data, {
+        headers: { Authorization: `JWT ${authTokens?.access}` },
+      });
+
+      setSuccessMsg("Profile Successfully Updated");
+    } catch (err) {
+      return handleAPIError(err);
+    }
+  };
+
+  // user password change
+  const changePassword = async (data) => {
+    setErrorMsg("");
+    setSuccessMsg("");
+    try {
+      await apiClient.post("/auth/users/set_password/", data, {
+        headers: { Authorization: `JWT ${authTokens?.access}` },
+      });
+
+      setSuccessMsg("Password Successfully Changed");
+    } catch (err) {
+      return handleAPIError(err);
     }
   };
 
@@ -54,19 +102,7 @@ const useAuth = () => {
           "Registration successful. Check your email to activate your account",
       };
     } catch (err) {
-      if (err.response && err.response.data) {
-        const errorMessage = Object.values(err.response.data).flat().join("\n");
-        setErrorMsg(errorMessage);
-
-        return { success: false, message: errorMessage };
-      } else {
-        setErrorMsg("Registartion failed. Please try again");
-
-        return {
-          success: false,
-          message: "Registartion failed. Please try again",
-        };
-      }
+      return handleAPIError(err, "Registration Failed! Try Again");
     }
   };
 
@@ -78,7 +114,16 @@ const useAuth = () => {
     localStorage.removeItem("authTokens");
   };
 
-  return { errorMsg, user, loginUser, registerUser, logoutUser };
+  return {
+    errorMsg,
+    successMsg,
+    user,
+    loginUser,
+    registerUser,
+    logoutUser,
+    updateUserProfile,
+    changePassword,
+  };
 };
 
 export default useAuth;

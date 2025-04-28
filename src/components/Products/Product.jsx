@@ -9,7 +9,7 @@ import { Autoplay, Navigation } from "swiper/modules";
 
 import { useEffect, useState } from "react";
 // import axios from "axios";
-import ProductItem from "/src/components/Products/ProductItem";
+import ProductItem from "/src/components/Products/ProductItem.jsx";
 import ErrorAlert from "/src/components/ErrorAlert";
 import apiClient from "/src/components/services/api_client.js";
 

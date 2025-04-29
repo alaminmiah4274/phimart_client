@@ -90,8 +90,12 @@ const useAuth = () => {
 			const res = await apiClient.post("/auth/jwt/create", userData);
 			setAuthTokens(res.data);
 			localStorage.setItem("authTokens", JSON.stringify(res.data));
+
+			return { success: true };
 		} catch (err) {
-			setErrorMsg(err.response.data?.detail);
+			setErrorMsg(err.response?.data?.detail);
+
+			return { success: false };
 		}
 	};
 
@@ -116,6 +120,7 @@ const useAuth = () => {
 		setUser(null);
 
 		localStorage.removeItem("authTokens");
+		localStorage.removeItem("cartId");
 	};
 
 	return {

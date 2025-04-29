@@ -43,5 +43,6 @@ Phimart server:
 https://phimart-gold.vercel.app/api/v1/
 
 users:
-dhi53smro7@vwhins.com: Bilings@2024
+cobev93035@buides.com: Arner@2024
+gasire4128@lushosa.com: Oiled@2024
 */

@@ -14,18 +14,20 @@ const useCart = () => {
 	const createOrGetCart = useCallback(async () => {
 		setLoading(true);
 		try {
-			const res = await authApiClient.post("/carts/");
+			const response = await authApiClient.post("/carts/");
 
-			// to set cart id only once
+			console.log(response); // status : 200
+
+			// to set cart id to local storage only once
 			if (!cartId) {
-				localStorage.setItem("cartId", res.data.id);
+				localStorage.setItem("cartId", response.data.id);
 
 				// cart id
-				setCartId(res.data.id);
+				setCartId(response.data.id);
 			}
 
 			// cart
-			setCart(res.data);
+			setCart(response.data);
 
 			// to set the cart id in local storage
 			// localStorage.setItem("cartId", res.data.id);
@@ -34,7 +36,7 @@ const useCart = () => {
 		} finally {
 			setLoading(false);
 		}
-	}, [authToken, cartId]);
+	}, [cartId]);
 
 	// add items to the cart
 	const AddCartItems = useCallback(
@@ -46,7 +48,10 @@ const useCart = () => {
 			try {
 				const response = await authApiClient.post(
 					`/carts/${cartId}/items/`,
-					{ product_id, quantity }
+					{
+						product_id,
+						quantity,
+					}
 				);
 
 				return response.data;
@@ -85,6 +90,7 @@ const useCart = () => {
 		[cartId]
 	);
 
+	// declared for refreshing navbar cart
 	useEffect(() => {
 		const initializeCart = async () => {
 			setLoading(true);
@@ -98,6 +104,7 @@ const useCart = () => {
 	return {
 		loading,
 		cart,
+		cartId,
 		createOrGetCart,
 		AddCartItems,
 		updateCartItemQuantity,

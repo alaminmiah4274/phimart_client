@@ -8,6 +8,7 @@ const Cart = () => {
 	const {
 		loading,
 		cart,
+		cartId,
 		createOrGetCart,
 		updateCartItemQuantity,
 		deleteCartItems,
@@ -111,6 +112,7 @@ const Cart = () => {
 					<CartSummary
 						totalPrice={localCart.total_price}
 						itemCount={localCart.items.length}
+						cartId={cartId}
 					/>
 				</div>
 			</div>

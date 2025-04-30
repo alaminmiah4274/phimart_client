@@ -13,6 +13,7 @@ import ProductDetail from "/src/pages/ProductDetail";
 import Cart from "/src/pages/Cart.jsx";
 import Orders from "../pages/Orders";
 import Login from "/src/pages/Login.jsx";
+import PaymentSuccess from "../pages/PaymentSuccess";
 
 const AppRoutes = () => {
 	return (
@@ -42,6 +43,7 @@ const AppRoutes = () => {
 				<Route path="profile" element={<Profile />} />
 				<Route path="cart" element={<Cart />} />
 				<Route path="orders" element={<Orders />} />
+				<Route path="payment/success" element={<PaymentSuccess />} />
 			</Route>
 		</Routes>
 	);

@@ -23,7 +23,11 @@ const Sidebar = () => {
 	const adminMenus = [
 		{ to: "/dashboard", icon: FiBarChart2, label: "Dashboard" },
 		{ to: "/products", icon: FiPackage, label: "Products" },
-		{ to: "/products/add", icon: FiPlusCircle, label: "Add Products" },
+		{
+			to: "/dashboard/products/add",
+			icon: FiPlusCircle,
+			label: "Add Products",
+		},
 		{ to: "/categories", icon: FiTag, label: "Categories" },
 		{ to: "/categories/add", icon: FiPlusCircle, label: "Add Category" },
 		{ to: "/dashboard/cart", icon: FiShoppingCart, label: "Cart" },

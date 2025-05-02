@@ -16,7 +16,7 @@ const useCart = () => {
 		try {
 			const response = await authApiClient.post("/carts/");
 
-			console.log(response); // status : 200
+			// status : 200
 
 			// to set cart id to local storage only once
 			if (!cartId) {

@@ -26,7 +26,7 @@ const AppRoutes = () => {
 				<Route path="login" element={<Login />} />
 				<Route path="register" element={<Register />} />
 				<Route
-					path="activate/:uid/:token"
+					path="/activate/:uid/:token"
 					element={<ActivateAccount />}
 				/>
 				<Route path="shop/:productId" element={<ProductDetail />} />
